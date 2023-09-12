@@ -25,6 +25,6 @@ export const Component2 = () => {
 //? Return an object
 export const Component3 = () => {
     return ( 
-        <h1>{ JSON.stringify(profile) }</h1>
+        <h1>{ JSON.stringify(profile)}</h1>
      );
 }
