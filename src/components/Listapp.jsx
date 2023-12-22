@@ -4,11 +4,10 @@ import { List } from "./List"
 export const Listapp = () => {
   const [endpoint, setEndpoint] = useState('users')
   const handleList = () => {
-    if (endpoint == 'users') {
+    if (endpoint === 'users') {
       setEndpoint('comments') 
     } else {
       setEndpoint('users') 
-
     }
   }
   return (

@@ -34,11 +34,11 @@ const Reducer = (state = defaultTasks, action = {}) => {
     case '[Proggraming] Add task':
       return [...state, action.payload]
     case '[Proggraming] Update task':
-
       return [...state, action.payload]
     case '[Proggraming] Delete task':
-
-      return []
+      return state.filter(task => task.id !== action.payload)
+    case '[Proggraming] Delete tasks':
+      return action.payload
     default:
       return state;
   }
@@ -50,8 +50,8 @@ console.log(Reducer(defaultTasks, addTask));
 export const TaskList = () => {
   const [tasks, dispatch] = useReducer(Reducer, defaultTasks)
   const { taskName, formInfo, onChangeValue } = useForm({ taskName: '' })
-  const [taskDone, setTaskDone] = useState(false) 
-  
+  const [taskDone, setTaskDone] = useState(false)
+
   const addTask = (e) => {
     e.preventDefault()
     if (!formInfo.taskName) return
@@ -64,6 +64,14 @@ export const TaskList = () => {
     const action = {
       type: '[Proggraming] Add task',
       payload: newTask
+    }
+    dispatch(action)
+  }
+
+  const deleteTask = ({id}) => {
+    const action = {
+      type: '[Proggraming] Delete task',
+      payload: id
     }
     dispatch(action)
   }
@@ -91,14 +99,14 @@ export const TaskList = () => {
         <Button className='w-50 m-auto' variant="primary" type="submit">
           Submit
         </Button>
-      <ul className=' fw-bold fs-5 mt-3'>
-        {tasks.map(task => {
-          return <li className='rounded-3 bg-white px-4 py-2 d-flex justify-content-between my-3' key={task.id}>
-            <span>{task.name}{task.done ? '✅' : '⛔'}</span>
-            <input type='checkbox' className=''></input>
-          </li>
-        })}
-      </ul>
+        <ul className=' fw-bold fs-5 mt-3'>
+          {tasks.map(task => {
+            return <li className='rounded-3 bg-white px-4 py-2 d-flex justify-content-between my-3' key={task.id}>
+              <span>{task.name}{task.done ? '✅' : '⛔'}</span>
+              <button onClick={() => deleteTask(task)} className=''>Delete</button>
+            </li>
+          })}
+        </ul>
       </Form>
     </>
   )

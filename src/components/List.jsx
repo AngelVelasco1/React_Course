@@ -1,6 +1,5 @@
 import { useList } from "./hooks/useList"
 
-
 export const List = ({ endpoint }) => {
   const { data, isLoading } = useList(endpoint)
 
@@ -13,7 +12,6 @@ export const List = ({ endpoint }) => {
             : data.map(comments => <li key={comments.id}>{comments.body}</li>)
 
       }
-
     </ul>
   )
 }
